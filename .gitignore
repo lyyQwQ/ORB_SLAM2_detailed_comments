@@ -25,3 +25,4 @@ doc/
 lib/
 */html/
 
+/cmake-build-debug/

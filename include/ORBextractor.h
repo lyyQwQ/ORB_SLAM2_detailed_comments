@@ -23,7 +23,9 @@
 
 #include <vector>
 #include <list>
-#include <opencv/cv.h>
+//#include <opencv/cv.h>
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui/highgui_c.h>
 
 
 //这个文件主要负责进行ORB特征点的提取和数目分配功能

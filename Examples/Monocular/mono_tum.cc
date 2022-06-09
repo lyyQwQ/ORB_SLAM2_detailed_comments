@@ -25,6 +25,7 @@
 #include<chrono>
 
 #include<opencv2/core/core.hpp>
+#include <opencv2/imgcodecs/legacy/constants_c.h>
 
 #include<System.h>
 #include<unistd.h>
@@ -75,6 +76,7 @@ int main(int argc, char **argv)
                  << string(argv[3]) << "/" << vstrImageFilenames[ni] << endl;
             return 1;
         }
+
 
 #ifdef COMPILEDWITHC11
         std::chrono::steady_clock::time_point t1 = std::chrono::steady_clock::now();
