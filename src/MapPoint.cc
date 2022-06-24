@@ -68,7 +68,7 @@ MapPoint::MapPoint(const cv::Mat &Pos,  //地图点的世界坐标
     mnId=nNextId++;
 }
 
-/*
+/**
  * @brief 给定坐标与frame构造MapPoint
  *
  * 双目：UpdateLastFrame()
@@ -91,9 +91,9 @@ MapPoint::MapPoint(const cv::Mat &Pos, Map* pMap, Frame* pFrame, const int &idxF
     //这个算重了吧
     cv::Mat PC = Pos - Ow;
     const float dist = cv::norm(PC);    //到相机的距离
-    const int level = pFrame->mvKeysUn[idxF].octave;
-    const float levelScaleFactor =  pFrame->mvScaleFactors[level];
-    const int nLevels = pFrame->mnScaleLevels;
+    const int level = pFrame->mvKeysUn[idxF].octave;    // 特征点在图像金字塔的层级
+    const float levelScaleFactor =  pFrame->mvScaleFactors[level];  // 缩放系数
+    const int nLevels = pFrame->mnScaleLevels;  // 图像金字塔的总层数
 
     // 另见 PredictScale 函数前的注释
     /* 666,因为在提取特征点的时候, 考虑到了图像的尺度问题,因此在不同图层上提取得到的特征点,对应着特征点距离相机的远近
@@ -107,7 +107,8 @@ MapPoint::MapPoint(const cv::Mat &Pos, Map* pMap, Frame* pFrame, const int &idxF
     pFrame->mDescriptors.row(idxF).copyTo(mDescriptor);
 
     // MapPoints can be created from Tracking and Local Mapping. This mutex avoid conflicts with id.
-    // TODO 不太懂,怎么个冲突法? 
+    // TODO 不太懂,怎么个冲突法?
+    // ↑ 应该是从上面直接复制下来的，懒得改了
     unique_lock<mutex> lock(mpMap->mMutexPointCreation);
     mnId=nNextId++;
 }
@@ -518,6 +519,7 @@ void MapPoint::UpdateNormalAndDepth()
     {
         KeyFrame* pKF = mit->first;
         cv::Mat Owi = pKF->GetCameraCenter();
+        // todo 前面加锁，这里怎么不加锁了？？？
         // 获得地图点和观测到它关键帧的向量并归一化
         cv::Mat normali = mWorldPos - Owi;
         normal = normal + normali/cv::norm(normali);                       

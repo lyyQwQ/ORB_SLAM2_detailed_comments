@@ -426,7 +426,7 @@ protected:
 
     // Bad flags
     bool mbNotErase;            ///< 当前关键帧已经和其他的关键帧形成了回环关系，因此在各种优化的过程中不应该被删除
-    bool mbToBeErased;          ///<
+    bool mbToBeErased;          ///< 是否在之前优化过程中尝试删除，初始为false
     bool mbBad;                 ///< 
 
     float mHalfBaseline; ///< 对于双目相机来说,双目相机基线长度的一半. Only for visualization

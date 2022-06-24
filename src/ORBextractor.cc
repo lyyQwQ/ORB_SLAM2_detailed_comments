@@ -474,6 +474,8 @@ ORBextractor::ORBextractor(int _nfeatures,		//指定要提取的特征点数目
     nfeatures(_nfeatures), scaleFactor(_scaleFactor), nlevels(_nlevels),
     iniThFAST(_iniThFAST), minThFAST(_minThFAST)//设置这些参数
 {
+    /// step 1: 根据配置文件中的参数，计算图像金字塔相关参数
+
 	//存储每层图像缩放系数的vector调整为符合图层数目的大小
     mvScaleFactor.resize(nlevels);  
 	//存储这个sigma^2，其实就是每层图像相对初始图像缩放因子的平方
@@ -524,6 +526,8 @@ ORBextractor::ORBextractor(int _nfeatures,		//指定要提取的特征点数目
     }
     //由于前面的特征点个数取整操作，可能会导致剩余一些特征点个数没有被分配，所以这里就将这个余出来的特征点分配到最高的图层中
     mnFeaturesPerLevel[nlevels-1] = std::max(nfeatures - sumFeatures, 0);
+
+    /// step 2: 将预设的，用于计算特征点描述子的256个点对，保存到成员变量std::vector<cv::Point> pattern中
 
 	//成员变量pattern的长度，也就是点的个数，这里的512表示512个点（上面的数组中是存储的坐标所以是256*2*2）
     const int npoints = 512;
