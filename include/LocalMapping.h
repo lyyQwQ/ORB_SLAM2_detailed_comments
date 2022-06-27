@@ -183,7 +183,16 @@ protected:
     bool mbResetRequested;
     /// 和复位信号有关的互斥量
     std::mutex mMutexReset;
+/**
+ *
+ * 注意这部分，带finish的，是和线程结束相关的，主要由System控制
+ * 带stop的，是停止请求，和LoopClosing有关
+ *
+ *
+ */
 
+
+    /// 检查是否有结束线程请求
     /** @brief 检查是否已经有外部线程请求终止当前线程 */
     bool CheckFinish();
     /** @brief 设置当前线程已经真正地结束了,由本线程run函数调用 */
@@ -217,9 +226,9 @@ protected:
     /// 终止BA的标志
     bool mbAbortBA;
 
-    /// 当前线程是否已经真正地终止了
+    /// 当前线程是否已经真正地终止了（停止标志）
     bool mbStopped;
-    /// 终止当前线程的请求
+    /// 终止当前线程的请求（是否有外部线程发送停止请求）
     bool mbStopRequested;
     /// 标志这当前线程还不能够停止工作,优先级比那个"mbStopRequested"要高.只有这个和mbStopRequested都满足要求的时候,线程才会进行一系列的终止操作
     bool mbNotStop;

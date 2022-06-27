@@ -106,6 +106,7 @@ void LocalMapping::Run()
                 SearchInNeighbors();
             }
 
+            // todo ?
             // 终止BA的标志
             mbAbortBA = false;
 
@@ -1010,7 +1011,7 @@ void LocalMapping::RequestFinish()
 bool LocalMapping::CheckFinish()
 {
     unique_lock<mutex> lock(mMutexFinish);
-    return mbFinishRequested;
+        return mbFinishRequested;
 }
 
 // 设置当前线程已经真正地结束了
