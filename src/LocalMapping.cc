@@ -269,6 +269,7 @@ void LocalMapping::MapPointCulling()
         {
             // Step 2.2：跟踪到该地图点的帧数相比预计可观测到该地图点的帧数的比例小于25%，从地图中删除
             // (mnFound/mnVisible） < 25%
+            /// 这里有点问题，mnFound表示的应该是地图点在多少帧中有对应，而mnVisible表示地图点在多少帧的观测范围内
             // mnFound ：地图点被多少帧（包括普通帧）看到，次数越多越好
             // mnVisible：地图点应该被看到的次数
             // (mnFound/mnVisible）：对于大FOV镜头这个比例会高，对于窄FOV镜头这个比例会低
@@ -327,6 +328,7 @@ void LocalMapping::CreateNewMapPoints()
     const float &invfx1 = mpCurrentKeyFrame->invfx;
     const float &invfy1 = mpCurrentKeyFrame->invfy;
 
+    // todo 这是在干嘛？
     // 用于后面的点深度的验证;这里的1.5是经验值
     // mfScaleFactor = 1.2
     const float ratioFactor = 1.5f*mpCurrentKeyFrame->mfScaleFactor;

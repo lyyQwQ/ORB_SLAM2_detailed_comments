@@ -338,7 +338,7 @@ void Optimizer::BundleAdjustment(const vector<KeyFrame *> &vpKFs, const vector<M
     } // 遍历所有地图点,保存优化之后地图点的位姿
 }
 
-/*
+/**
  * @brief Pose Only Optimization
  * 
  * 3D-2D 最小化重投影误差 e = (u,v) - project(Tcw*Pw) \n

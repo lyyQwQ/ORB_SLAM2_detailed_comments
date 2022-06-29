@@ -114,7 +114,8 @@ System::System(const string &strVocFile,					//词典文件路径
     //初始化局部建图线程并运行
     //Initialize the Local Mapping thread and launch
     mpLocalMapper = new LocalMapping(mpMap, 				//指定使iomanip
-    								 mSensor==MONOCULAR);	// TODO 为什么这个要设置成为MONOCULAR？？？
+    								 mSensor==MONOCULAR);
+    // TODO 为什么这个要设置成为MONOCULAR？？？
     //运行这个局部建图线程
     mptLocalMapping = new thread(&ORB_SLAM2::LocalMapping::Run,	//这个线程会调用的函数
     							 mpLocalMapper);				//这个调用函数的参数
